@@ -1,6 +1,6 @@
 此为[USTC-VerilogOJ](https://verilogoj.ustc.edu.cn/oj/problem/30)的Chisel模板仓库。
 
-src/main/scala/answers/P0030和P0078是[https://verilogoj.ustc.edu.cn/oj/problem/30](https://verilogoj.ustc.edu.cn/oj/problem/30)和[https://verilogoj.ustc.edu.cn/oj/problem/78](https://verilogoj.ustc.edu.cn/oj/problem/78)的代码。
+src/main/scala/answers/P0030和P0078是[https://verilogoj.ustc.edu.cn/oj/problem/30](https://verilogoj.ustc.edu.cn/oj/problem/30)和[https://verilogoj.ustc.edu.cn/oj/problem/78](https://verilogoj.ustc.edu.cn/oj/problem/78)的代码。src/main/scala/answers/P0143是[https://verilogoj.ustc.edu.cn/oj/problem/143](https://verilogoj.ustc.edu.cn/oj/problem/143)的代码。
 
 作业过程：
 
@@ -62,6 +62,22 @@ src/main/scala/answers/P0030和P0078是[https://verilogoj.ustc.edu.cn/oj/problem
      	val r = RegInit(UInt(4.W))
      }
      ```
+
+   如果需要引用OJ提供的模块，就需要利用Chisel提供的`BlackBox`。以P0143为例：
+
+   题目中的`mod_a`是题目提供的，为了实例化这么一个module，你需要写：
+
+   ```scala
+   class mod_a extends BlackBox {
+     val io = IO(new Bundle {
+       val in1 = Input(Bool())
+       val in2 = Input(Bool())
+       val out = Output(Bool())
+     })
+   }
+   ```
+
+   之后就可以`val m = Module(new mod_a)`来使用这个实例化的module了。
 
 3. 更改src/main/scala/TopApp里`top_module`继承（或者说`extends`）的类为你刚完成的类。
 
